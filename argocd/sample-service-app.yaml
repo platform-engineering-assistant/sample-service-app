@@ -2,14 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: sample-service-app
+  namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://example.invalid/sample-service-app.git
-    targetRevision: HEAD
+    repoURL: https://github.com/platform-engineering-assistant/sample-service-app.git
+    targetRevision: main
     path: charts/sample-service-app
   destination:
     server: https://kubernetes.default.svc
     namespace: sample-service-app
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
