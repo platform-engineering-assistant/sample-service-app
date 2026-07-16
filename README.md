@@ -1,15 +1,25 @@
 # Sample Service App
 
 This repository represents a small service owned by an application developer.
-The developer owns the container definition but has not written Kubernetes,
-Helm, or Argo CD configuration.
+The developer owns the container definition and the platform deployment
+configuration.
 
-The platform assistant can inspect `app/Dockerfile` and prepare the deployment
-configuration from platform standards and policies:
+The app container is defined in `app/Dockerfile`. Kubernetes deployment is
+managed through Helm and Argo CD:
 
-```text
-Deploy sample-service-app
+- `charts/sample-service-app/` contains the Helm chart.
+- `argocd/sample-service-app.yaml` contains the Argo CD `Application`.
+
+## Render Manifests
+
+```sh
+helm template sample-service-app charts/sample-service-app
 ```
 
-The initial repository deliberately contains no `charts/` or `argocd/`
-directory. Generated files are written locally only after explicit approval.
+## Deploy With Argo CD
+
+Apply the Argo CD application manifest to a cluster with Argo CD installed:
+
+```sh
+kubectl apply -f argocd/sample-service-app.yaml
+```
