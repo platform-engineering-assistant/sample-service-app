@@ -1,21 +1,9 @@
-image:
-  repository: nginx
-  tag: 1.27-alpine
-  pullPolicy: IfNotPresent
+image: nginx:1.27-alpine
 replicaCount: 1
 containerPort: 80
 service:
   type: ClusterIP
   port: 80
-probes:
-  liveness:
-    path: /
-    initialDelaySeconds: 10
-    periodSeconds: 10
-  readiness:
-    path: /
-    initialDelaySeconds: 5
-    periodSeconds: 10
 resources:
   requests:
     cpu: 100m
