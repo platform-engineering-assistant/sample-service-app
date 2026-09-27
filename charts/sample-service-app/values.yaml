@@ -1,0 +1,13 @@
+image: nginx:1.27-alpine
+replicaCount: 1
+containerPort: 80
+service:
+  type: ClusterIP
+  port: 80
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
